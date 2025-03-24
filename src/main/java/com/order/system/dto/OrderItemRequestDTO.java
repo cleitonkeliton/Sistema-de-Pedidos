@@ -1,14 +1,12 @@
 package com.order.system.dto;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import lombok.Data;
 
-@Data
 public class OrderItemRequestDTO {
-    @NotNull(message = "O ID do produto é obrigatório")
+    @NotNull(message = "Product ID é obrigatório")
     private Long productId;
 
-    @Positive(message = "A quantidade deve ser maior que zero")
+    @Min(value = 1, message = "A quantidade deve ser no mínimo 1")
     private Integer quantity;
 }

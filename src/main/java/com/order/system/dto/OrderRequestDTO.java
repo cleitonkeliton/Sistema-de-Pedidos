@@ -7,9 +7,9 @@ import java.util.List;
 
 @Data
 public class OrderRequestDTO {
-    @NotNull(message = "ID do cliente é obrigatório")
+    @NotNull(message = "Customer ID é obrigatório")
     private Long customerId;
 
-    @NotEmpty(message = "Lista de itens não pode estar vazia")
+    @NotEmpty(message = "A lista de itens não pode estar vazia")
     private List<OrderItemRequestDTO> items;
 }

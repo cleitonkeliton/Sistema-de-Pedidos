@@ -48,7 +48,32 @@ public class OrderService {
     }
 
     private OrderResponseDTO mapToResponseDTO(Order order) {
-        // Implemente a conversão para DTO
-        return new OrderResponseDTO();
+        OrderResponseDTO response = new OrderResponseDTO();
+        response.setId(order.getId());
+        response.setOrderDate(order.getOrderDate());
+        response.setStatus(order.getStatus());
+        response.setTotal(order.getTotal());
+
+        // Mapear Customer para CustomerResponseDTO
+        CustomerResponseDTO customerDTO = new CustomerResponseDTO();
+        customerDTO.setId(order.getCustomer().getId());
+        customerDTO.setName(order.getCustomer().getName());
+        customerDTO.setEmail(order.getCustomer().getEmail());
+        response.setCustomer(customerDTO);
+
+        // Mapear OrderItems para OrderItemResponseDTO
+        List<OrderItemResponseDTO> itemsDTO = order.getItems().stream()
+                .map(item -> {
+                    OrderItemResponseDTO itemDTO = new OrderItemResponseDTO();
+                    itemDTO.setProductId(item.getProduct().getId());
+                    itemDTO.setProductName(item.getProduct().getName());
+                    itemDTO.setQuantity(item.getQuantity());
+                    itemDTO.setUnitPrice(item.getProduct().getPrice());
+                    return itemDTO;
+                }).toList();
+
+        response.setItems(itemsDTO);
+
+        return response;
     }
 }
